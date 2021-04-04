@@ -35,7 +35,7 @@ public class Main {
             startTesting(driver);
 
             // Testing Done !
-            System.out.println("Interaction Testing Successful !");
+            System.out.println("Automated Interaction Testing Successful !");
 
             Thread.sleep(5000); // wait before closing program
 
@@ -118,9 +118,24 @@ public class Main {
         action.clickAndHold(gRIPButtonElement).pause(Duration.ofSeconds(1)).perform();
 
         driver.navigate().to(TSF_ORIGINAL_LINKEDIN_LINK);
-        Thread.sleep(4000);
+        Thread.sleep(2000);
+
+        WebElement signInToggle = driver.findElement(By.xpath("/html/body/main/div/div/form[2]/section/p/button"));
+        signInToggle.click();
+
+        Thread.sleep(2000);
+
+        WebElement emailField = driver.findElement(By.name("session_key"));
+        emailField.sendKeys("Your Email Here ...");
+
+        Thread.sleep(2000);
+
+        WebElement passwordField = driver.findElement(By.name("session_password"));
+        passwordField.sendKeys("Your Password Here ...");
+
+        Thread.sleep(3000);
         driver.navigate().back();
 
-        System.out.println("Test 4) GRIP Link interacting properly");
+        System.out.println("Test 4) GRIP Link is valid and interacting properly");
     }
 }
