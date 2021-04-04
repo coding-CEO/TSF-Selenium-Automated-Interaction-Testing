@@ -64,6 +64,9 @@ public class Main {
         Utils.scroll(jsExecutor, 1700);
         Thread.sleep(2000);
         testGRIPLink(driver);
+
+        // Test 5)
+        testAboutPageUIAnimation(driver);
     }
 
     private static void testYoutubeVideoInteraction(WebDriver driver) throws Exception {
@@ -137,5 +140,32 @@ public class Main {
         driver.navigate().back();
 
         System.out.println("Test 4) GRIP Link is valid and interacting properly");
+    }
+
+    private static void testAboutPageUIAnimation(WebDriver driver) throws Exception {
+        String aboutDropDownXPath = NAV_BUTTONS_X_PATH + "/li[1]";
+        String visionMissionPageXPath = aboutDropDownXPath + "/ul/li[1]";
+
+        WebElement aboutDropDownElement = driver.findElement(By.xpath(aboutDropDownXPath));
+        aboutDropDownElement.click();
+
+        Thread.sleep(2000);
+
+        WebElement visionMissionPageElement = driver.findElement(By.xpath(visionMissionPageXPath));
+        visionMissionPageElement.click();
+
+        Utils.scroll(jsExecutor, 400);
+        Thread.sleep(2000);
+
+        String listXPath = "/html/body/div[2]/div/div[2]/div/ul/li";
+        List<WebElement> lists = driver.findElements(By.xpath(listXPath));
+
+        for(WebElement list : lists) {
+            action.clickAndHold(list).pause(Duration.ofSeconds(1)).perform();
+        }
+
+        driver.navigate().back();
+
+        System.out.println("Test 5) About Page UI Animation interacting properly");
     }
 }
