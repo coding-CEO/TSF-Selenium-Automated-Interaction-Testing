@@ -5,9 +5,12 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import utils.Utils;
 
+import java.util.List;
+
 public class Main {
 
     private static JavascriptExecutor jsExecutor;
+    private static final String navButtonsXPath = "/html/body/div[1]/div/div[2]/nav/div[2]/nav/ul";
 
     public static void main(String[] args) {
 
@@ -25,9 +28,10 @@ public class Main {
 
             // Testing begins
             Utils.scroll(jsExecutor, 600);
-            testYoutubeVideoInteraction(driver);
+            testYoutubeVideoInteraction(driver); //Test 1)
 
             Utils.scroll(jsExecutor, -600);
+            testNavButtons(driver); //Test 2)
 
             // Testing Done !
             System.out.println("Interaction Testing Successful !");
@@ -49,5 +53,23 @@ public class Main {
         Thread.sleep(5000); // wait for some seconds
         introYoutubeVideo.click(); // Pause Youtube video
         System.out.println("Test 1) Intro Youtube Video interacting properly");
+    }
+
+    private static void testNavButtons(WebDriver driver) throws Exception {
+        String navButtonsPath = navButtonsXPath + "/li";
+        List<WebElement> navButtons = driver.findElements(By.xpath(navButtonsPath));
+
+        for(WebElement navButton : navButtons) {
+            navButton.click();
+            Thread.sleep(1000);
+        }
+
+        // Last button in Contact Page.
+        // So, we should be in contact page now
+        Utils.scroll(jsExecutor, 450);
+        Thread.sleep(1500);
+
+        driver.navigate().back();
+        System.out.println("Test 2) Nav Buttons are interacting properly");
     }
 }
