@@ -9,7 +9,7 @@ public class Main {
     public static void main(String[] args) {
 
         // Setup basic Things
-        System.setProperty("webdriver.chrome.driver", "src/chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "src/utils/chromedriver.exe");
 
         WebDriver driver = new ChromeDriver();
         jsExecutor = (JavascriptExecutor) driver;
