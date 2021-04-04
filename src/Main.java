@@ -3,7 +3,6 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import utils.Utils;
 
@@ -14,7 +13,8 @@ public class Main {
 
     private static JavascriptExecutor jsExecutor;
     private static Actions action;
-    private static final String navButtonsXPath = "/html/body/div[1]/div/div[2]/nav/div[2]/nav/ul";
+    private static final String NAV_BUTTONS_X_PATH = "/html/body/div[1]/div/div[2]/nav/div[2]/nav/ul";
+    private static final String TSF_ORIGINAL_LINKEDIN_LINK = "https://www.linkedin.com/company/the-sparks-foundation/";
 
     public static void main(String[] args) {
 
@@ -59,6 +59,11 @@ public class Main {
 
         // Test 3)
         testContactUsPage(driver);
+
+        // Test 4)
+        Utils.scroll(jsExecutor, 1700);
+        Thread.sleep(2000);
+        testGRIPLink(driver);
     }
 
     private static void testYoutubeVideoInteraction(WebDriver driver) throws Exception {
@@ -70,7 +75,7 @@ public class Main {
     }
 
     private static void testDropDownNavButtons(WebDriver driver) throws Exception {
-        String navButtonsPath = navButtonsXPath + "/li[contains(@class, 'dropdown')]";
+        String navButtonsPath = NAV_BUTTONS_X_PATH + "/li[contains(@class, 'dropdown')]";
         List<WebElement> navButtons = driver.findElements(By.xpath(navButtonsPath));
 
         for(WebElement navButton : navButtons) {
@@ -82,7 +87,7 @@ public class Main {
     }
 
     private static void testContactUsPage(WebDriver driver) throws Exception {
-        String contactPageNavElementXPath = navButtonsXPath + "/li[last()]";
+        String contactPageNavElementXPath = NAV_BUTTONS_X_PATH + "/li[last()]";
         WebElement contactPageNavElement = driver.findElement(By.xpath(contactPageNavElementXPath));
         contactPageNavElement.click();
 
@@ -100,5 +105,22 @@ public class Main {
         driver.navigate().back();
 
         System.out.println("Test 3) Contact Us page interacting properly");
+    }
+
+    private static void testGRIPLink(WebDriver driver) throws Exception {
+        String gRIPLinkXPath = "//div[contains(@class, 'register-wthree')]/div/div/a";
+
+        WebElement gRIPButtonElement = driver.findElement(By.xpath(gRIPLinkXPath));
+        String testLink = gRIPButtonElement.getAttribute("href");
+
+        assert(TSF_ORIGINAL_LINKEDIN_LINK.equals(testLink)); // Verify link url
+
+        action.clickAndHold(gRIPButtonElement).pause(Duration.ofSeconds(1)).perform();
+
+        driver.navigate().to(TSF_ORIGINAL_LINKEDIN_LINK);
+        Thread.sleep(4000);
+        driver.navigate().back();
+
+        System.out.println("Test 4) GRIP Link interacting properly");
     }
 }
