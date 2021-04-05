@@ -10,6 +10,12 @@ import utils.Utils;
 import java.time.Duration;
 import java.util.List;
 
+/**
+ * The Sparks Foundation Internship Task
+ *
+ * Name: Pratik Arvind Raut
+ */
+
 public class Main {
 
     private static JavascriptExecutor jsExecutor;
