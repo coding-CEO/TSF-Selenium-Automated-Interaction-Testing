@@ -1,4 +1,3 @@
-import org.jetbrains.annotations.NotNull;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -76,7 +75,7 @@ public class Main {
         testAboutPageUIAnimation(driver);
     }
 
-    private static void testYoutubeVideoInteraction(@NotNull WebDriver driver) throws Exception {
+    private static void testYoutubeVideoInteraction(WebDriver driver) throws Exception {
         WebElement introYoutubeVideo = driver.findElement(By.id("youtube-video"));
         introYoutubeVideo.click(); // Start Youtube video
         Thread.sleep(5000); // wait for some seconds
